@@ -6,8 +6,6 @@ import App from './JobProject/App'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
-    <App />
-    </BrowserRouter>
+    <h1> App is rendring</h1>
   </StrictMode>,
 )
