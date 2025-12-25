@@ -2,7 +2,7 @@
 //import { companies } from "../data/companies";
 import JobCard from "../components/JobCard";
 import CompanyCard from "../components/CompanyCard";
-import { client, urlFor } from "../../sanityClient";
+import { client } from "../../sanityClient";
 import { useEffect, useState} from "react"
 import "../styles/home.css"
 import { useMemo } from "react"
@@ -178,7 +178,7 @@ const jobRows = useMemo(() => {
               company={{
                 name: c.name,
                 slug: c.slug,
-                logoUrl: c.logo ? urlFor(c.logo).width(120).url() : ""
+               /* logoUrl: c.logo ? /*urlFor(c.logo).width(120).url() : ""*/
               }}
             />
           ))}
