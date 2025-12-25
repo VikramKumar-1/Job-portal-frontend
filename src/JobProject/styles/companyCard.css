@@ -1,0 +1,47 @@
+.company-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 14px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.2s ease;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 20px;
+  justify-items: center;   /* CENTER ITEMS */
+
+}
+
+.company-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+}
+
+.company-card img {
+  height: 38px;
+  object-fit: contain;
+  margin-bottom: 6px;
+}
+
+.company-card p {
+  font-size: 13px;
+  font-weight: 600;
+  color: #111827;
+}
+
+
+/* =========================
+   Mobile Responsive - Company Card
+   ========================= */
+
+@media (max-width: 768px) {
+  .company-card img {
+    height: 32px;
+  }
+
+  .company-card p {
+    font-size: 12px;
+  }
+}

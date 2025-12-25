@@ -1,0 +1,111 @@
+.home-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.page-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  
+}
+.section-header {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.company-section {
+  margin-bottom: 40px;
+}
+
+.company-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 16px;
+  
+}
+
+.job-columns {
+ 
+   display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+ align-items: start; /* IMPORTANT */
+ 
+}
+
+.job-column {
+  background: #f9fafb;
+  padding: 18px;
+  border-radius: 14px;
+   min-width: 0;       /* 🔥 MOST IMPORTANT LINE */
+  width: 100%;
+  margin:0;
+  padding-top:0;
+}
+
+.section-title {
+ width: 100%;                 /* 🔥 REQUIRED */
+  text-align: center;          /* center text */
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 auto 20px auto;    /* center block */
+  color: #111827;
+  letter-spacing: -0.3px;
+  display: block; 
+  background: #a02007;
+  color:white;
+}
+
+.job-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+  
+  
+}
+
+.job-header-cell {
+  font-size: 18px;
+  font-weight: 600;
+  padding-bottom: 8px;
+  background: #114865;
+  color:#f9fafb;
+  text-align: center;
+}
+
+.job-row {
+  display: contents; /* important for grid rows */
+}
+
+.job-cell {
+  min-width: 0;
+}
+
+/* =========================
+   Mobile Responsive - Home
+   ========================= */
+
+@media (max-width: 768px) {
+  .job-columns {
+    grid-template-columns: 1fr 1fr;
+    gap:8px;
+  }
+
+  .page-title {
+    font-size: 22px;
+  }
+
+  .job-column {
+    padding: 14px;
+  }
+}
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 18px;
+  }
+}
