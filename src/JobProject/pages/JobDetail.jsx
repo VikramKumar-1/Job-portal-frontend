@@ -21,7 +21,8 @@ export default function JobDetail()
         description,
         lastDate,
         applyLink,
-        companyName
+        
+        "companyName":coalesce(company->name, companyText)
       }`,
       { slug }
     ).then(setJob);
@@ -32,7 +33,7 @@ export default function JobDetail()
   return (
     <div className="detail-container">
       <h1>{job.title}</h1>
-      <p><b>Company:</b> {job.companyName}</p>
+      <p><b>Company:</b> {job.companyName || "Confidential / Not disclosed"}</p>
       <p><b>Location:</b> {job.location}</p>
       <p><b>Experience:</b> {job.experience}</p>
       <p><b>Eligibility:</b> {job.eligibility}</p>
