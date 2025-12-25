@@ -23,7 +23,7 @@ export function timeAgo(dateString) {
 }
 
 /* NEW BADGE LOGIC */
-const isNewJob = (date) => {
+export const isNewJob = (date) => {
   if (!date) return false;
 
   const diffHours = (Date.now() - new Date(date).getTime()) / (1000 * 60 * 60);
