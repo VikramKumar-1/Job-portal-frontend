@@ -4,8 +4,22 @@ import Home from "./pages/Home"
 import JobDetail from "./pages/JobDetail";
 import CompanyJobs from "./pages/CompanyJobs";
 import Navbar from "./components/Navbar"
+import PageLoader from "./components/PageLoader";
+import {useEffect, useState}from "react"
+
 export default function App(){
- 
+ const [appLoading, setAppLoading] = useState(true);
+
+  useEffect(() => {
+    // simulate initial app load
+    const timer = setTimeout(() => {
+      setAppLoading(false);
+    }, 800); // small delay for smooth UX
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (appLoading) return <PageLoader />;
     return (
        <>
         <Navbar />

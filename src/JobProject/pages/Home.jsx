@@ -115,7 +115,7 @@ import { useMemo } from "react"
 export default function Home() {
   const [companies, setCompanies] = useState([]);
   const [jobs, setJobs] = useState([]);
-  
+
   useEffect(() => {
     client
       .fetch(`*[_type=="company"]{
@@ -165,8 +165,8 @@ const jobRows = useMemo(() => {
   }));
 }, [itJobs, nonItJobs]);
 
-  if (loading) return <PageLoader />;
-  
+
+
   return (
     <div className="home-container">
       <h1 className="page-title"></h1>
