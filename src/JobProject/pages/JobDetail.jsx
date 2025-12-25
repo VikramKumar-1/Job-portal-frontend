@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 
-//import {timeAgo} from "../utils/timeAgo"
+import {timeAgo} from "../utils/timeAgo"
 import { client } from "../../sanityClient"
 import { useEffect, useState} from "react"
 import "../styles/jobDetail.css"
@@ -38,8 +38,9 @@ export default function JobDetail()
       <p><b>Experience:</b> {job.experience}</p>
       <p><b>Eligibility:</b> {job.eligibility}</p>
       <p><b>Last Date:</b> {job.lastDate}</p>
+        <span> {timeAgo(job._postedAt)}</span>
        <PortableText value={job.description} />
-
+       
       <a href={job.applyLink} target="_blank" rel="noopener noreferrer" className="apply-btn">
         Apply Now
       </a>

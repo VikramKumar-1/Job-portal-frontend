@@ -39,7 +39,7 @@ import "../styles/jobCard.css";
 
   <div className="posted-right">
     <MdAccessTime />
-    <span>Posted {timeAgo(job._postedAt)}</span>
+    <span> {timeAgo(job._postedAt)}</span>
   </div>
 </div>
 

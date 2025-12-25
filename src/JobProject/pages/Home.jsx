@@ -122,7 +122,7 @@ export default function Home() {
         _id,
         name,
         "slug": slug.current,
-        logo
+        "logoUrl": logo.asset->url
       }`)
       .then(setCompanies);
 
@@ -165,6 +165,8 @@ const jobRows = useMemo(() => {
   }));
 }, [itJobs, nonItJobs]);
 
+  if (loading) return <PageLoader />;
+  
   return (
     <div className="home-container">
       <h1 className="page-title"></h1>
