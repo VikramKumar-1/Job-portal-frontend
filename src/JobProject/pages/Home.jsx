@@ -130,7 +130,8 @@ export default function Home() {
       .fetch(`*[_type=="job"] | order(postedAt desc)[0...50]{
         _id,
         title,
-        companyName,
+       
+       "companyName": coalesce(company->name, companyText),
         location,
         category,
         experience,
