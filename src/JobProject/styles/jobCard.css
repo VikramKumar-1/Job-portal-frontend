@@ -224,7 +224,17 @@
   .job-columns {
     max-width: 1200px;
     margin: auto;
+    
   }
+ 
+}
+.home-container {
+  animation: fadeIn 0.25s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0 }
+  to { opacity: 1 }
 }
 
 

@@ -1,177 +1,87 @@
-//import { jobs } from "../data/mockJobs";
-//import { companies } from "../data/companies";
-import JobCard from "../components/JobCard";
-import CompanyCard from "../components/CompanyCard";
+import { useEffect, useMemo, useState } from "react";
 import { client } from "../../sanityClient";
-import { useEffect, useState} from "react"
-import "../styles/home.css"
-import { useMemo } from "react"
-
-/*export default function Home() {
-  const [companies, setCompanies] = useState([]);
-  const [jobs, setJobs] = useState([]);
-
-
-   
-  useEffect(() => {
-    client
-      .fetch(`*[_type=="company"]{
-        _id,
-        name,
-        "slug": slug.current,
-        logo
-      }`)
-      .then(setCompanies);
-
-    client
-      .fetch(`*[_type=="job"] | order(postedAt desc){
-        _id,
-        title,
-        companyName,
-        location,
-        category,
-        experience,
-        eligibility,
-        lastDate,
-        applyLink,
-        postedAt,
-        "slug": slug.current
-      }`)
-      .then(setJobs);
-  }, []);
-
-  const itJobs = jobs.filter(j => j.category === "IT");
-  const nonItJobs = jobs.filter(j => j.category === "NON_IT");
-
-  return (
-    <div className="home-container">
-      <h1 className="page-title">Latest Job Openings</h1>
-
-      {/* Companies *
-      <section className="company-section">
-        <h2 className="section-title">Top Hiring Companies</h2>
-        <div className="company-grid">
-          {companies.map(c => (
-            <CompanyCard
-              key={c._id}
-              company={{
-                name: c.name,
-                slug: c.slug,
-                logoUrl: c.logo ? urlFor(c.logo).width(120).url() : ""
-              }}
-            />
-          ))}
-        </div>
-      </section>
-
-      {/* Jobs *
-      <div className="job-columns">
-        <section className="job-column">
-          <h2 className="section-title">IT Jobs</h2>
-          <div className="job-list">
-            {itJobs.map(j => (
-              <JobCard
-                key={j._id}
-                job={{
-                  title: j.title,
-                  companyName: j.companyName,
-                  location: j.location,
-                  experience: j.experience,
-                  eligibility: j.eligibility,
-                  lastDate: j.lastDate,
-                  postedAt: j.postedAt,
-                  slug: j.slug
-                }}
-              />
-            ))}
-          </div>
-        </section>
-
-        <section className="job-column">
-          <h2 className="section-title">Non-IT Jobs</h2>
-          <div className="job-list">
-            {nonItJobs.map(j => (
-              <JobCard
-                key={j._id}
-                job={{
-                  title: j.title,
-                  companyName: j.companyName,
-                  location: j.location,
-                  experience: j.experience,
-                  eligibility: j.eligibility,
-                  lastDate: j.lastDate,
-                  postedAt: j.postedAt,
-                  slug: j.slug
-                }}
-              />
-            ))}
-          </div>
-        </section>
-      </div>
-    </div>
-  );
-}*/
+import CompanyCard from "../components/CompanyCard";
+import JobCard from "../components/JobCard";
+import "../styles/home.css";
 
 export default function Home() {
+  // -----------------------------
+  // STATE
+  // -----------------------------
   const [companies, setCompanies] = useState([]);
   const [jobs, setJobs] = useState([]);
+  const [pageReady, setPageReady] = useState(false);
 
+  // -----------------------------
+  // DATA FETCH
+  // -----------------------------
   useEffect(() => {
-    client
-      .fetch(`*[_type=="company"]{
+    Promise.all([
+      client.fetch(`*[_type=="company"]{
         _id,
         name,
         "slug": slug.current,
         "logoUrl": logo.asset->url
-      }`)
-      .then(setCompanies);
-
-    client
-      .fetch(`*[_type=="job"] | order(_createdAt desc)[0...50]{
+      }`),
+      client.fetch(`*[_type=="job"] | order(_createdAt desc)[0...50]{
         _id,
         title,
-       
-       "companyName": coalesce(company->name, companyText),
+        "companyName": coalesce(company->name, companyText),
         location,
         category,
         experience,
         eligibility,
         lastDate,
-         "_postedAt": _createdAt,
+        "_postedAt": _createdAt,
         "slug": slug.current
       }`)
-      .then(setJobs);
+    ]).then(([companiesData, jobsData]) => {
+      setCompanies(companiesData || []);
+      setJobs(jobsData || []);
+      setPageReady(true);
+    });
   }, []);
 
-  /* ------------------------
-     ROW-BY-ROW LOGIC
-  ------------------------- */
+  // -----------------------------
+  // 🔒 SAFETY (CRITICAL)
+  // -----------------------------
+  const safeJobs = Array.isArray(jobs) ? jobs : [];
 
+  // -----------------------------
+  // MEMOIZED DERIVED DATA
+  // -----------------------------
   const itJobs = useMemo(
-  () => jobs.filter(j => j.category === "IT"),
-  [jobs]
-);
+    () => safeJobs.filter(j => j.category === "IT"),
+    [safeJobs]
+  );
 
-const nonItJobs = useMemo(
-  () => jobs.filter(j => j.category === "NON_IT"),
-  [jobs]
-);
+  const nonItJobs = useMemo(
+    () => safeJobs.filter(j => j.category === "NON_IT"),
+    [safeJobs]
+  );
 
-const jobRows = useMemo(() => {
-  const max = Math.max(itJobs.length, nonItJobs.length);
-  return Array.from({ length: max }, (_, i) => ({
-    it: itJobs[i] || null,
-    nonIt: nonItJobs[i] || null
-  }));
-}, [itJobs, nonItJobs]);
+  const rows = useMemo(() => {
+    const max = Math.max(itJobs.length, nonItJobs.length);
+    return Array.from({ length: max }, (_, i) => ({
+      it: itJobs[i] || null,
+      nonIt: nonItJobs[i] || null
+    }));
+  }, [itJobs, nonItJobs]);
 
+  // -----------------------------
+  // BLOCK RENDER UNTIL READY
+  // -----------------------------
+  if (!pageReady) return null;
 
-
+  // -----------------------------
+  // RENDER
+  // -----------------------------
   return (
     <div className="home-container">
-      <h1 className="page-title"></h1>
 
-      {/* Companies */}
+      {/* =====================
+          TOP HIRING COMPANIES
+         ===================== */}
       <section className="company-section">
         <h2 className="section-title">Top Hiring Companies</h2>
         <div className="company-grid">
@@ -181,30 +91,32 @@ const jobRows = useMemo(() => {
               company={{
                 name: c.name,
                 slug: c.slug,
-               /* logoUrl: c.logo ? /*urlFor(c.logo).width(120).url() : ""*/
+                logoUrl: c.logoUrl
               }}
             />
           ))}
         </div>
       </section>
 
-      {/* Jobs - ROW BASED GRID */}
+      {/* =====================
+          JOBS GRID
+         ===================== */}
       <div className="job-grid">
         <div className="job-header-cell">IT Jobs</div>
         <div className="job-header-cell">Non-IT Jobs</div>
 
-        {jobRows.map((row, index) => (
+        {rows.map((row, index) => (
           <div className="job-row" key={index}>
             <div className="job-cell">
               {row.it && <JobCard job={row.it} />}
             </div>
-
             <div className="job-cell">
               {row.nonIt && <JobCard job={row.nonIt} />}
             </div>
           </div>
         ))}
       </div>
+
     </div>
   );
 }

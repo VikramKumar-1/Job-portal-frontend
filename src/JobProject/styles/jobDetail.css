@@ -2,10 +2,34 @@
    Blog Container
 ========================= */
 .detail-container {
-  max-width: 760px;        /* blog width */
-  margin: 40px auto;
-  padding: 0 16px;
+  /*max-width: 760px; 
+        /*  blog width */
+          /*max-width: 100%;*/
+ /* margin: 40px 10%;
+ /* padding: 0 16px;
+  padding: 16px;*/
+ max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;       /* soft border */
+  border-radius: 12px;             /* rounded corners */
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06); /* soft shadow */
+  box-sizing: border-box;
+
+
+ /* max-width: 900px;      /* desktop width 
+  margin: 0 auto;        /* ✅ keeps it centered 
+  padding: 16px;         /* ✅ safe space on mobile 
+  box-sizing: border-box;*/
+  
+   
 }
+.detail-container ul {
+  padding-left: 18px;          /* brings bullets inside */
+  list-style-position: inside; /* bullets stay visible */
+}
+
 
 /* =========================
    Blog Title
@@ -23,12 +47,17 @@
 ========================= */
 .detail-container p b {
   color: #374151;
+  font-weight: 600;
 }
 
 .detail-container p {
-  font-size: 15px;
+ /* font-size: 15px;
   color: #4b5563;
-  margin-bottom: 6px;
+  margin-bottom: 6px;*/
+   font-size: 14.5px;
+  color: #374151;
+  margin: 6px 0;
+  line-height: 1.6;
 }
 
 /* =========================
@@ -41,11 +70,22 @@
   color: #1f2937;
 }
 
+.detail-container h3 {
+  margin-top: 20px;
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1f2937;
+  border-left: 4px solid #2563eb; /* blue accent */
+  padding-left: 8px;
+}
+
+
 /* =========================
    Apply Button (Blog CTA)
 ========================= */
 .apply-btn {
-  display: inline-block;
+ /* display: inline-block;
   margin-top: 32px;
   background-color: #2563eb;
   color: #ffffff;
@@ -53,7 +93,23 @@
   border-radius: 999px;
   font-weight: 600;
   text-decoration: none;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  transition: background-color 0.2s ease, transform 0.1s ease;*/
+
+  display: block;
+  margin-top: 24px;
+  padding: 14px;
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  
+   
+
+ 
 }
 
 .apply-btn:hover {
@@ -70,5 +126,14 @@
 @media (max-width: 640px) {
   .detail-container h1 {
     font-size: 24px;
+    padding-left: 18px;
   }
+}
+@media (max-width: 480px) {
+  .detail-container {
+   padding: 14px;
+  }
+}
+.detail-container {
+  animation: fadeIn 0.35s ease-out;
 }

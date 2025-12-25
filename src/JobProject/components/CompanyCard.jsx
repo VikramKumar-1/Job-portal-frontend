@@ -3,6 +3,7 @@ import "../styles/companyCard.css"
 
 
 export default function CompanyCard({ company }) {
+   console.log(company);
   return (
     <Link to={`/company/${company.slug}`} className="company-card">
       

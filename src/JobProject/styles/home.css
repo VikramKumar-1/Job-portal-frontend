@@ -109,3 +109,41 @@
     font-size: 18px;
   }
 }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.home-container {
+  animation: fadeIn 0.35s ease-out;
+  margin-top:0px;
+}
+/* ===============================
+   COMPANY JOBS – DESKTOP GRID
+   =============================== */
+
+.job-list {
+  display: block; /* Mobile default */
+}
+
+/* Tablet and up */
+@media (min-width: 768px) {
+  .job-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    align-items: stretch;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .job-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

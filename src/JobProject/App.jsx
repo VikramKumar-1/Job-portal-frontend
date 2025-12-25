@@ -14,7 +14,7 @@ export default function App(){
     // simulate initial app load
     const timer = setTimeout(() => {
       setAppLoading(false);
-    }, 800); // small delay for smooth UX
+    }, 300); // small delay for smooth UX
 
     return () => clearTimeout(timer);
   }, []);
