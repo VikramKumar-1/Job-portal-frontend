@@ -10,16 +10,16 @@ export default function CompanyJobs(){
 
   useEffect(() => {
     client.fetch(
-      `*[_type=="job" && company->slug.current==$slug]{
+      `*[_type=="job" && company->slug.current==$slug] | order(_createdAt desc){
         _id,
         title,
         location,
         experience,
         eligibility,
         lastDate,
-        postedAt,
+        "_postedAt": _createdAt,
         "slug": slug.current,
-        companyName
+         "companyName": coalesce(company->name, companyText)
       }`,
       { slug }
     ).then(setJobs);

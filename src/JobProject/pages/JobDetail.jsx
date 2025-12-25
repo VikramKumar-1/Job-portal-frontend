@@ -21,7 +21,7 @@ export default function JobDetail()
         description,
         lastDate,
         applyLink,
-        
+        "_postedAt": _createdAt,
         "companyName":coalesce(company->name, companyText)
       }`,
       { slug }

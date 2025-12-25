@@ -23,14 +23,9 @@ export function timeAgo(dateString) {
 }
 
 /* NEW BADGE LOGIC */
-export function isNewJob(dateString) {
-  if (!dateString) return false;
+const isNewJob = (date) => {
+  if (!date) return false;
 
-  const posted = new Date(dateString);
-  if (isNaN(posted.getTime())) return false;
-
-  const now = new Date();
-  const diffInHours = (now - posted) / (1000 * 60 * 60);
-
-  return diffInHours <= 24;
-}
+  const diffHours = (Date.now() - new Date(date).getTime()) / (1000 * 60 * 60);
+  return diffHours <= 24;
+};

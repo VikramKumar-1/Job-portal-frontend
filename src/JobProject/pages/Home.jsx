@@ -127,7 +127,7 @@ export default function Home() {
       .then(setCompanies);
 
     client
-      .fetch(`*[_type=="job"] | order(postedAt desc)[0...50]{
+      .fetch(`*[_type=="job"] | order(_createdAt desc)[0...50]{
         _id,
         title,
        
@@ -137,7 +137,7 @@ export default function Home() {
         experience,
         eligibility,
         lastDate,
-        postedAt,
+         "_postedAt": _createdAt,
         "slug": slug.current
       }`)
       .then(setJobs);

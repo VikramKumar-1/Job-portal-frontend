@@ -1,5 +1,7 @@
 import { timeAgo, isNewJob } from "../utils/timeAgo"
 import { Link } from "react-router-dom"
+import { useEffect, useState } from "react";
+
 
 import React from "react";
 import {
@@ -12,6 +14,15 @@ import {
 import "../styles/jobCard.css";
 
  function JobCard({ job }) {
+
+   const [, forceUpdate] = useState(0);
+   useEffect(() => {
+    const timer = setInterval(() => {
+      forceUpdate(v => v + 1);
+    }, 60000); // every 1 minute
+
+    return () => clearInterval(timer);
+  }, []);
   return (
     <div className="job-card">
 
@@ -21,14 +32,14 @@ import "../styles/jobCard.css";
         <div className="job-title-row">
     <h3 className="job-title">{job.title}</h3>
 
-    {isNewJob(job.postedAt) && (
+    {isNewJob(job._postedAt) && (
       <span className="new-badge">NEW</span>
     )}
   </div>
 
   <div className="posted-right">
     <MdAccessTime />
-    <span>Posted {timeAgo(job.postedAt)}</span>
+    <span>Posted {timeAgo(job._postedAt)}</span>
   </div>
 </div>
 
