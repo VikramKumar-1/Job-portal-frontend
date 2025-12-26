@@ -7,7 +7,7 @@ export default function Navbar() {
       <div className="nav-container">
         {/* Logo */}
         <Link to="/" className="nav-logo">
-          Job<span>Sutra</span>
+          Job<span>Astro</span>
         </Link>
 
         {/* Navigation */}
@@ -15,6 +15,8 @@ export default function Navbar() {
           <NavLink to="/" className="nav-item">
             Home
           </NavLink>
+          
+          
         </nav>
       </div>
     </header>

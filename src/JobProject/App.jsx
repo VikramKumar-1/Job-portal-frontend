@@ -28,6 +28,7 @@ export default function App(){
             <Route path="/" element={<Home/>}/>
             <Route path="/jobs/:slug" element={<JobDetail/>}/>
             <Route path="/company/:slug" element={<CompanyJobs/>}/>
+            
         </Routes>
       </>
     )
